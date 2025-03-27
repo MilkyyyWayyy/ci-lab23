@@ -19,7 +19,7 @@ jobs:
           echo "waiting"
           sleep 33
       - name: check api
-        run: docker compose exec -it web curl localhost:5000
+        run: docker exec web-1 curl localhost:5000
  
       - name: shutdown docker compose
         if : always()
