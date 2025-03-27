@@ -1,4 +1,4 @@
-name: CI with Docker Compose
+name: Test
  
 on:
   push:
@@ -7,20 +7,19 @@ on:
   pull_request:
  
 jobs:
-docker-ci:
-  runs-on: ubuntu-latest
+  build-and-test:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: check smth
         uses: actions/checkout@v3
-
-      - name: Set up Docker Compose
+ 
+      - name: Checkout database
         run: |
           docker compose up -d
-          echo "Waiting"
+          echo "waiting"
           sleep 20
- 
-      - name: Run test inside web container
-        run: docker compose exec -it web curl localhost:5000/api/users
+      - name: check api
+        run: docker compose exec -it web curl localhost:5000
  
       - name: shutdown docker compose
         if : always()
